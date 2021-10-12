@@ -8,9 +8,11 @@ class TweetsController < ApplicationController
   end
   
   def create
+    logger.debug"________"
+
     @tweet = Tweet.new(message: params[:tweet][:message], tdate: params[:tweet][:tdate])
     if @tweet.save
-       redirect_to '/'  
+       redirect_to tweets_path  
     else
       render 'new'
     end
@@ -19,7 +21,7 @@ class TweetsController < ApplicationController
   def destroy
     tweet = Tweet.find(params[:id])
     tweet.destroy
-    redirect_to '/'  
+    redirect_to tweets_path  
   end
   
   def show
@@ -33,7 +35,7 @@ class TweetsController < ApplicationController
   def update
     @tweet = Tweet.find(params[:id])
     Tweet.update(message: params[:tweet][:message], tdate:params[:tweet][:tdate])
-    redirect_to '/'  
+    redirect_to root_path
   end
 
 end
